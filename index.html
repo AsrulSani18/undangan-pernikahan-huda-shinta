@@ -369,62 +369,305 @@
       transform: translateY(-1px);
     }
 
-    .link-gen-history {
-      margin-top: 1.5rem;
-      max-height: 300px;
-      overflow-y: auto;
+    /* ============================================================
+       LINK TRACKER & STATS DASHBOARD
+    ============================================================ */
+    .tracker-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      font-size: 0.78rem;
+      text-align: left;
+      line-height: 1.4;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .tracker-banner.info {
+      background: rgba(91, 158, 201, 0.1);
+      border-color: rgba(91, 158, 201, 0.25);
+      color: var(--blue-light);
+    }
+    .tracker-banner.success {
+      background: rgba(46, 174, 125, 0.1);
+      border-color: rgba(46, 174, 125, 0.25);
+      color: var(--emerald-light);
+    }
+    .tracker-banner.warning {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: rgba(201, 168, 76, 0.25);
+      color: var(--gold-light);
+    }
+    .tracker-banner-icon {
+      font-size: 1.1rem;
+    }
+    .tracker-banner-text {
+      flex: 1;
+    }
+    .tracker-banner-text code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      font-family: monospace;
     }
 
-    .link-gen-history-title {
-      font-family: var(--font-serif);
-      font-size: 1rem;
+    .tracker-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 1.5rem;
+      gap: 0.5rem;
+    }
+    .tracker-tab {
+      background: none;
+      border: none;
       color: var(--text-mid);
-      margin-bottom: 0.8rem;
+      padding: 0.8rem 1.2rem;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .tracker-tab:hover {
+      color: var(--text-dark);
+    }
+    .tracker-tab.active {
+      color: var(--emerald-light);
+    }
+    .tracker-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+    }
+
+    .tracker-tab-content {
+      display: none;
+    }
+    .tracker-tab-content.active {
+      display: block;
+    }
+
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 550px) {
+      .stats-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+    .stats-card {
+      background: rgba(13, 17, 23, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .stats-card:hover {
+      border-color: rgba(91, 158, 201, 0.2);
+      transform: translateY(-2px);
+      background: rgba(13, 17, 23, 0.7);
+    }
+    .stats-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .stats-card-value {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.2;
+    }
+    .stats-card-label {
+      font-size: 0.7rem;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+
+    .tracker-guest-list {
+      background: rgba(13, 17, 23, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 1.2rem;
       text-align: left;
     }
-
-    .link-gen-history-item {
-      background: rgba(13, 17, 23, 0.4);
-      border-radius: 10px;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.5rem;
+    .tracker-guest-list-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.2s ease;
-    }
-
-    .link-gen-history-item:hover {
-      border-color: rgba(46, 174, 125, 0.2);
-      background: rgba(13, 17, 23, 0.6);
-    }
-
-    .link-gen-history-name {
+      margin-bottom: 1rem;
+      font-family: var(--font-serif);
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 1.05rem;
       color: var(--text-dark);
     }
-
-    .link-gen-history-actions {
-      display: flex;
-      gap: 0.4rem;
-    }
-
-    .link-gen-history-btn {
+    .tracker-refresh-btn {
       background: none;
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-mid);
+      padding: 0.35rem 0.75rem;
       border-radius: 8px;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       cursor: pointer;
+      font-family: var(--font-sans);
       transition: all 0.2s ease;
     }
+    .tracker-refresh-btn:hover {
+      border-color: var(--blue-wardah);
+      color: var(--blue-light);
+      background: rgba(91, 158, 201, 0.05);
+    }
 
-    .link-gen-history-btn:hover {
-      border-color: var(--emerald);
+    #tracker-guest-items {
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 0.2rem;
+    }
+    #tracker-guest-items::-webkit-scrollbar {
+      width: 6px;
+    }
+    #tracker-guest-items::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+    #tracker-guest-items::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+    #tracker-guest-items::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .tracker-guest-item {
+      background: rgba(21, 29, 43, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+    .tracker-guest-item:hover {
+      border-color: rgba(46, 174, 125, 0.15);
+      background: rgba(21, 29, 43, 0.85);
+    }
+    .tracker-guest-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .tracker-guest-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tracker-guest-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+      flex-wrap: wrap;
+    }
+    .tracker-guest-badge {
+      font-size: 0.68rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .badge-unread {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-light);
+    }
+    .badge-read {
+      background: rgba(91, 158, 201, 0.15);
+      color: var(--blue-light);
+    }
+    .badge-opened {
+      background: rgba(46, 174, 125, 0.15);
       color: var(--emerald-light);
+    }
+    
+    .tracker-guest-stats {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-mid);
+    }
+    .tracker-guest-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .tracker-guest-stat.views {
+      color: var(--blue-light);
+    }
+    .tracker-guest-stat.clicks {
+      color: var(--emerald-light);
+    }
+
+    .tracker-guest-actions {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .tracker-guest-btn {
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-mid);
+      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+    }
+    .tracker-guest-btn:hover {
+      border-color: var(--blue-wardah);
+      color: var(--blue-light);
+      background: rgba(91, 158, 201, 0.05);
+    }
+    .tracker-guest-btn.delete:hover {
+      border-color: #ff6b6b;
+      color: #ff8787;
+      background: rgba(255, 107, 107, 0.05);
+    }
+
+    .tracker-empty {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-style: italic;
     }
 
     /* ============================================================
@@ -3149,9 +3392,9 @@
         <div style="text-align:center;" class="reveal">
           <div style="font-size:3rem;margin-bottom:1rem;">🔗</div>
           <span class="section-tag">Buat Undangan Personal</span>
-          <h2 class="section-title">Link Generator</h2>
+          <h2 class="section-title">Link Generator & Statistik</h2>
           <p class="section-subtitle" style="margin:0 auto;">
-            Buat link undangan khusus untuk setiap tamu. Nama tamu akan tampil di halaman pembuka undangan.
+            Buat link undangan personal serta pantau statistik interaksi pembukaan undangan secara real-time.
           </p>
           <div class="section-divider" style="justify-content:center;">
             <div class="section-divider-line"></div>
@@ -3162,27 +3405,70 @@
 
         <div class="link-gen-wrapper reveal">
           <div class="link-gen-header">
-            <h3>Buat Link Undangan</h3>
-            <p>Masukkan nama tamu untuk membuat link personal</p>
+            <h3>Dashboard Undangan</h3>
+            <p>Kelola link undangan personal dan pantau interaksi tamu</p>
           </div>
           <div class="link-gen-body">
-            <div class="link-gen-input-group">
-              <input type="text" class="link-gen-input" id="guest-name-input" placeholder="Contoh: Ahmad Huda Bulkini" />
-              <button class="link-gen-btn" onclick="generateGuestLink()">✨ Buat Link</button>
+            <!-- Connection status banner -->
+            <div id="tracker-banner" class="tracker-banner info">
+              <span class="tracker-banner-icon">ℹ️</span>
+              <span class="tracker-banner-text">Mempersiapkan sistem pelacakan...</span>
             </div>
 
-            <div class="link-gen-result" id="link-gen-result">
-              <span class="link-gen-result-label">Link Undangan:</span>
-              <div class="link-gen-result-url" id="link-gen-url"></div>
-              <div class="link-gen-actions">
-                <button class="link-gen-copy-btn" id="link-gen-copy" onclick="copyGeneratedLink()">📋 Salin Link</button>
-                <button class="link-gen-wa-btn" onclick="shareViaWhatsApp()">💬 Kirim via WA</button>
+            <!-- Tabs Navigation -->
+            <div class="tracker-tabs">
+              <button class="tracker-tab active" id="tab-btn-generate" onclick="switchTrackerTab('generate')">🔗 Buat Link</button>
+              <button class="tracker-tab" id="tab-btn-stats" onclick="switchTrackerTab('stats')">📊 Statistik & Tamu</button>
+            </div>
+
+            <!-- Tab Content: Generate Link -->
+            <div id="tab-generate" class="tracker-tab-content active">
+              <div class="link-gen-input-group">
+                <input type="text" class="link-gen-input" id="guest-name-input" placeholder="Contoh: Ahmad Huda Bulkini" />
+                <button class="link-gen-btn" onclick="generateGuestLink()">✨ Buat Link</button>
+              </div>
+
+              <div class="link-gen-result" id="link-gen-result">
+                <span class="link-gen-result-label">Link Undangan:</span>
+                <div class="link-gen-result-url" id="link-gen-url"></div>
+                <div class="link-gen-actions">
+                  <button class="link-gen-copy-btn" id="link-gen-copy" onclick="copyGeneratedLink()">📋 Salin Link</button>
+                  <button class="link-gen-wa-btn" onclick="shareViaWhatsApp()">💬 Kirim via WA</button>
+                </div>
               </div>
             </div>
 
-            <div class="link-gen-history" id="link-gen-history" style="display:none;">
-              <div class="link-gen-history-title">📝 Riwayat Link Dibuat</div>
-              <div id="link-gen-history-items"></div>
+            <!-- Tab Content: Stats & Guest List -->
+            <div id="tab-stats" class="tracker-tab-content">
+              <!-- Stats Cards -->
+              <div class="stats-cards">
+                <div class="stats-card">
+                  <div class="stats-card-icon">🔗</div>
+                  <div class="stats-card-value" id="stats-total-shared">0</div>
+                  <div class="stats-card-label">Dibagikan</div>
+                </div>
+                <div class="stats-card">
+                  <div class="stats-card-icon">👁️</div>
+                  <div class="stats-card-value" id="stats-total-views">0</div>
+                  <div class="stats-card-label">Dilihat</div>
+                </div>
+                <div class="stats-card">
+                  <div class="stats-card-icon">👇</div>
+                  <div class="stats-card-value" id="stats-total-clicks">0</div>
+                  <div class="stats-card-label">Undangan Dibuka</div>
+                </div>
+              </div>
+
+              <!-- Guest Tracking List -->
+              <div class="tracker-guest-list">
+                <div class="tracker-guest-list-header">
+                  <span>📝 Daftar Tamu & Pelacakan</span>
+                  <button class="tracker-refresh-btn" onclick="refreshStats()">🔄 Segarkan</button>
+                </div>
+                <div id="tracker-guest-items">
+                  <!-- Dynamic Item list injected by JavaScript -->
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -3233,9 +3519,17 @@
         const nameEl = document.getElementById('loading-guest-name');
         nameEl.textContent = decodeURIComponent(guestName.trim());
         wrapper.style.display = 'block';
+
+        // Record guest view
+        if (typeof InvitationTracker !== 'undefined') {
+          InvitationTracker.recordView(guestName);
+        }
       } else {
         // Owner mode: show link generator section
         document.getElementById('link-generator').style.display = 'block';
+        if (typeof InvitationTracker !== 'undefined') {
+          InvitationTracker.init();
+        }
       }
 
       setTimeout(() => {
@@ -3252,6 +3546,14 @@
       ls.classList.add('hidden');
 
       document.getElementById('main-content').style.display = 'block';
+
+      // Record guest click ("Buka Undangan")
+      const guestName = new URLSearchParams(window.location.search).get('to');
+      if (guestName && guestName.trim() !== '') {
+        if (typeof InvitationTracker !== 'undefined') {
+          InvitationTracker.recordClick(guestName);
+        }
+      }
 
       setTimeout(() => {
         ls.style.display = 'none';
@@ -3612,18 +3914,343 @@ Terima kasih & semoga menjadi keluarga sakinah mawaddah warahmah`;
       showToast('Membuka Google Calendar...');
     }
     /* ============================================================
-       LINK GENERATOR
+       LINK GENERATOR & STATS TRACKER
     ============================================================ */
     let generatedLink = '';
     let generatedGuestName = '';
-    let linkHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
 
-    // Render history on load
-    window.addEventListener('DOMContentLoaded', () => {
-      renderLinkHistory();
-    });
+    // ============================================================
+    // INTEGRASI DATABASE FIREBASE (OPSIONAL)
+    // ============================================================
+    // Untuk melacak pembukaan undangan oleh tamu secara online/real-time:
+    // 1. Buat database gratis di https://firebase.google.com/
+    // 2. Pilih "Realtime Database" dan buat database baru.
+    // 3. Setel Rules database ke public (untuk uji coba awal):
+    //    { "rules": { ".read": true, ".write": true } }
+    // 4. Salin URL database Anda dan tempel di variabel 'firebaseUrl' di bawah.
+    // Contoh: firebaseUrl: 'https://wedding-invitation-default-rtdb.firebaseio.com/'
+    // ============================================================
+    
+    const InvitationTracker = {
+      // Masukkan URL database Firebase Realtime Database Anda di sini untuk pelacakan online
+      firebaseUrl: '', 
 
-    function generateGuestLink() {
+      init() {
+        this.checkConfig();
+        this.syncFromLocalStorage().then(() => {
+          this.refreshData();
+        });
+      },
+
+      checkConfig() {
+        const banner = document.getElementById('tracker-banner');
+        if (!banner) return;
+        if (this.firebaseUrl) {
+          if (!this.firebaseUrl.endsWith('/')) {
+            this.firebaseUrl += '/';
+          }
+          banner.className = 'tracker-banner success';
+          banner.querySelector('.tracker-banner-icon').textContent = '✅';
+          banner.querySelector('.tracker-banner-text').innerHTML = '<strong>Pelacakan Online Aktif</strong> (Firebase terhubung)';
+        } else {
+          banner.className = 'tracker-banner info';
+          banner.querySelector('.tracker-banner-icon').textContent = 'ℹ️';
+          banner.querySelector('.tracker-banner-text').innerHTML = '<strong>Mode Local Storage</strong>. Data tersimpan di browser ini. Hubungkan database Firebase untuk melacak interaksi tamu secara real-time dari perangkat mereka.';
+        }
+      },
+
+      getSafeKey(name) {
+        return encodeURIComponent(name.trim()).replace(/\./g, '%2E');
+      },
+
+      async recordShare(name, link) {
+        const timestamp = new Date().toISOString();
+        const guestData = {
+          name: name.trim(),
+          link: link,
+          sharedAt: timestamp,
+          views: 0,
+          clicks: 0,
+          lastViewed: null,
+          lastClicked: null
+        };
+
+        // Simpan lokal
+        let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+        const idx = localHistory.findIndex(g => g.name.toLowerCase() === name.trim().toLowerCase());
+        if (idx === -1) {
+          localHistory.unshift(guestData);
+          localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+        }
+
+        // Simpan ke Firebase jika aktif
+        if (this.firebaseUrl) {
+          try {
+            const safeKey = this.getSafeKey(name);
+            const response = await fetch(`${this.firebaseUrl}guests/${safeKey}.json`);
+            if (response.ok) {
+              const existing = await response.json();
+              if (existing) {
+                guestData.views = existing.views || 0;
+                guestData.clicks = existing.clicks || 0;
+                guestData.lastViewed = existing.lastViewed || null;
+                guestData.lastClicked = existing.lastClicked || null;
+              }
+            }
+            await fetch(`${this.firebaseUrl}guests/${safeKey}.json`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(guestData)
+            });
+          } catch (err) {
+            console.error('Gagal menyimpan ke Firebase:', err);
+          }
+        }
+        this.refreshData();
+      },
+
+      async recordView(name) {
+        if (!name) return;
+        const timestamp = new Date().toISOString();
+
+        // Simpan lokal
+        let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+        const item = localHistory.find(g => g.name.toLowerCase() === name.trim().toLowerCase());
+        if (item) {
+          item.views = (item.views || 0) + 1;
+          item.lastViewed = timestamp;
+          localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+        } else {
+          localHistory.push({
+            name: name.trim(),
+            link: window.location.href,
+            sharedAt: timestamp,
+            views: 1,
+            clicks: 0,
+            lastViewed: timestamp,
+            lastClicked: null
+          });
+          localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+        }
+
+        // Simpan ke Firebase
+        if (this.firebaseUrl) {
+          try {
+            const safeKey = this.getSafeKey(name);
+            const getRes = await fetch(`${this.firebaseUrl}guests/${safeKey}.json`);
+            if (getRes.ok) {
+              const existing = await getRes.json();
+              const currentViews = existing ? (existing.views || 0) : 0;
+              const currentClicks = existing ? (existing.clicks || 0) : 0;
+              const currentLink = existing ? existing.link : window.location.href;
+              const currentShared = existing ? existing.sharedAt : timestamp;
+
+              await fetch(`${this.firebaseUrl}guests/${safeKey}.json`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name: name.trim(),
+                  link: currentLink,
+                  sharedAt: currentShared,
+                  views: currentViews + 1,
+                  lastViewed: timestamp,
+                  clicks: currentClicks
+                })
+              });
+            }
+          } catch (err) {
+            console.error('Gagal mencatat view ke Firebase:', err);
+          }
+        }
+      },
+
+      async recordClick(name) {
+        if (!name) return;
+        const timestamp = new Date().toISOString();
+
+        // Simpan lokal
+        let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+        const item = localHistory.find(g => g.name.toLowerCase() === name.trim().toLowerCase());
+        if (item) {
+          item.clicks = (item.clicks || 0) + 1;
+          item.lastClicked = timestamp;
+          localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+        }
+
+        // Simpan ke Firebase
+        if (this.firebaseUrl) {
+          try {
+            const safeKey = this.getSafeKey(name);
+            const getRes = await fetch(`${this.firebaseUrl}guests/${safeKey}.json`);
+            if (getRes.ok) {
+              const existing = await getRes.json();
+              const currentClicks = existing ? (existing.clicks || 0) : 0;
+              await fetch(`${this.firebaseUrl}guests/${safeKey}.json`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  clicks: currentClicks + 1,
+                  lastClicked: timestamp
+                })
+              });
+            }
+          } catch (err) {
+            console.error('Gagal mencatat click ke Firebase:', err);
+          }
+        }
+      },
+
+      async syncFromLocalStorage() {
+        if (!this.firebaseUrl) return;
+        try {
+          const response = await fetch(`${this.firebaseUrl}guests.json`);
+          if (response.ok) {
+            const firebaseGuests = await response.json();
+            let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+
+            if (firebaseGuests) {
+              Object.keys(firebaseGuests).forEach(key => {
+                const fg = firebaseGuests[key];
+                if (!fg || !fg.name) return;
+                const idx = localHistory.findIndex(lh => lh.name.toLowerCase() === fg.name.toLowerCase());
+                if (idx !== -1) {
+                  localHistory[idx].views = Math.max(localHistory[idx].views || 0, fg.views || 0);
+                  localHistory[idx].clicks = Math.max(localHistory[idx].clicks || 0, fg.clicks || 0);
+                  if (fg.lastViewed && (!localHistory[idx].lastViewed || new Date(fg.lastViewed) > new Date(localHistory[idx].lastViewed))) {
+                    localHistory[idx].lastViewed = fg.lastViewed;
+                  }
+                  if (fg.lastClicked && (!localHistory[idx].lastClicked || new Date(fg.lastClicked) > new Date(localHistory[idx].lastClicked))) {
+                    localHistory[idx].lastClicked = fg.lastClicked;
+                  }
+                  if (fg.sharedAt) {
+                    localHistory[idx].sharedAt = fg.sharedAt;
+                  }
+                } else {
+                  localHistory.push(fg);
+                }
+              });
+              localHistory.sort((a, b) => new Date(b.sharedAt) - new Date(a.sharedAt));
+              localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+            }
+
+            // Upload tamu lokal yang belum ada di Firebase
+            for (const lh of localHistory) {
+              const safeKey = this.getSafeKey(lh.name);
+              if (!firebaseGuests || !firebaseGuests[safeKey]) {
+                await fetch(`${this.firebaseUrl}guests/${safeKey}.json`, {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(lh)
+                });
+              }
+            }
+          }
+        } catch (err) {
+          console.error('Gagal sinkronisasi data:', err);
+        }
+      },
+
+      async deleteGuest(name) {
+        if (!confirm(`Apakah Anda yakin ingin menghapus data pelacakan untuk "${name}"?`)) return;
+
+        // Hapus lokal
+        let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+        localHistory = localHistory.filter(g => g.name.toLowerCase() !== name.trim().toLowerCase());
+        localStorage.setItem('weddingLinkHistory', JSON.stringify(localHistory));
+
+        // Hapus Firebase jika aktif
+        if (this.firebaseUrl) {
+          try {
+            const safeKey = this.getSafeKey(name);
+            await fetch(`${this.firebaseUrl}guests/${safeKey}.json`, {
+              method: 'DELETE'
+            });
+          } catch (err) {
+            console.error('Gagal menghapus data dari Firebase:', err);
+          }
+        }
+
+        this.refreshData();
+        showToast(`🗑️ Tamu "${name}" berhasil dihapus.`);
+      },
+
+      async refreshData() {
+        let guests = [];
+
+        if (this.firebaseUrl) {
+          try {
+            const response = await fetch(`${this.firebaseUrl}guests.json`);
+            if (response.ok) {
+              const data = await response.json();
+              if (data) {
+                guests = Object.keys(data).map(key => data[key]);
+              }
+            }
+          } catch (err) {
+            console.error('Gagal mengambil data dari Firebase, fallback ke Local Storage:', err);
+            guests = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+          }
+        } else {
+          guests = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+        }
+
+        guests.sort((a, b) => new Date(b.sharedAt || 0) - new Date(a.sharedAt || 0));
+
+        const totalShared = guests.length;
+        const totalViews = guests.reduce((sum, g) => sum + (g.views || 0), 0);
+        const totalClicks = guests.reduce((sum, g) => sum + (g.clicks || 0), 0);
+
+        document.getElementById('stats-total-shared').textContent = totalShared;
+        document.getElementById('stats-total-views').textContent = totalViews;
+        document.getElementById('stats-total-clicks').textContent = totalClicks;
+
+        const container = document.getElementById('tracker-guest-items');
+        if (!container) return;
+
+        if (guests.length === 0) {
+          container.innerHTML = '<div class="tracker-empty">Belum ada link yang dibuat.</div>';
+          return;
+        }
+
+        container.innerHTML = '';
+        guests.forEach(g => {
+          const item = document.createElement('div');
+          item.className = 'tracker-guest-item';
+
+          let statusBadge = '<span class="tracker-guest-badge badge-unread">Belum Dibuka</span>';
+          if (g.clicks > 0) {
+            statusBadge = '<span class="tracker-guest-badge badge-opened">Undangan Buka</span>';
+          } else if (g.views > 0) {
+            statusBadge = '<span class="tracker-guest-badge badge-read">Sudah Dilihat</span>';
+          }
+
+          const safeName = g.name.replace(/'/g, "\\'");
+          const dateText = g.sharedAt ? new Date(g.sharedAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) : '-';
+
+          item.innerHTML = `
+            <div class="tracker-guest-info">
+              <div class="tracker-guest-name" title="${escapeHtml(g.name)}">👤 ${escapeHtml(g.name)}</div>
+              <div class="tracker-guest-meta">
+                <span>📅 ${dateText}</span>
+                ${statusBadge}
+              </div>
+            </div>
+            <div class="tracker-guest-stats">
+              <div class="tracker-guest-stat views" title="Jumlah Dilihat">👁️ ${g.views || 0}</div>
+              <div class="tracker-guest-stat clicks" title="Jumlah Buka Undangan">👆 ${g.clicks || 0}</div>
+            </div>
+            <div class="tracker-guest-actions">
+              <button class="tracker-guest-btn" onclick="copyTrackerLink('${safeName}')" title="Salin Link">📋</button>
+              <button class="tracker-guest-btn" onclick="shareTrackerWA('${safeName}')" title="Kirim via WhatsApp">💬</button>
+              <button class="tracker-guest-btn delete" onclick="InvitationTracker.deleteGuest('${safeName}')" title="Hapus Tamu">🗑️</button>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      }
+    };
+
+    async function generateGuestLink() {
       const input = document.getElementById('guest-name-input');
       const name = input.value.trim();
 
@@ -3633,26 +4260,17 @@ Terima kasih & semoga menjadi keluarga sakinah mawaddah warahmah`;
         return;
       }
 
-      // Build URL
       const baseUrl = window.location.origin + window.location.pathname;
       generatedLink = baseUrl + '?to=' + encodeURIComponent(name);
       generatedGuestName = name;
 
-      // Show result
       const resultDiv = document.getElementById('link-gen-result');
       document.getElementById('link-gen-url').textContent = generatedLink;
       resultDiv.style.display = 'block';
 
-      // Save to history
-      const exists = linkHistory.find(h => h.name === name);
-      if (!exists) {
-        linkHistory.unshift({ name, link: generatedLink, date: new Date().toLocaleDateString('id-ID') });
-        if (linkHistory.length > 50) linkHistory.pop();
-        localStorage.setItem('weddingLinkHistory', JSON.stringify(linkHistory));
-        renderLinkHistory();
-      }
+      // Record to tracker
+      await InvitationTracker.recordShare(name, generatedLink);
 
-      // Reset copy button
       const copyBtn = document.getElementById('link-gen-copy');
       copyBtn.textContent = '📋 Salin Link';
 
@@ -3671,7 +4289,6 @@ Terima kasih & semoga menjadi keluarga sakinah mawaddah warahmah`;
           btn.textContent = '📋 Salin Link';
         }, 2500);
       }).catch(() => {
-        // Fallback
         const el = document.getElementById('link-gen-url');
         const range = document.createRange();
         range.selectNode(el);
@@ -3685,16 +4302,12 @@ Terima kasih & semoga menjadi keluarga sakinah mawaddah warahmah`;
 
     function shareViaWhatsApp() {
       if (!generatedLink) return;
-
-      const message = `Assalamu'alaikum Wr. Wb.\n\nDengan segala kerendahan hati dan rasa syukur atas karunia Allah SWT yang senantiasa mencurahkan tetes kelembutan kasih sayang Nya.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i ${generatedGuestName} untuk menghadiri acara pernikahan kami:\n\nShinta & Huda\n\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n${generatedLink}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir. \n\nTerima kasih atas perhatiannya.\nWassalamualaikum Wr. Wb.`;
-
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, '_blank');
-      showToast('💬 Membuka WhatsApp...');
+      shareLinkViaWA(generatedGuestName, generatedLink);
     }
 
-    function copyHistoryLink(name) {
-      const item = linkHistory.find(h => h.name === name);
+    function copyTrackerLink(name) {
+      let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+      const item = localHistory.find(h => h.name.toLowerCase() === name.toLowerCase());
       if (!item) return;
 
       navigator.clipboard.writeText(item.link).then(() => {
@@ -3704,41 +4317,46 @@ Terima kasih & semoga menjadi keluarga sakinah mawaddah warahmah`;
       });
     }
 
-    function shareHistoryViaWA(name) {
-      const item = linkHistory.find(h => h.name === name);
+    function shareTrackerWA(name) {
+      let localHistory = JSON.parse(localStorage.getItem('weddingLinkHistory') || '[]');
+      const item = localHistory.find(h => h.name.toLowerCase() === name.toLowerCase());
       if (!item) return;
+      shareLinkViaWA(name, item.link);
+    }
 
-      const message = `Assalamu'alaikum Wr. Wb.\n\nDengan memohon Rahmat dan Ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i *${name}* untuk menghadiri acara pernikahan kami:\n\n*Shinta Yulianti Rohman & Ahmad Huda Bulkini*\n📅 Rabu, 24 Juni 2026\n📍 Kp. Tanjung RT 03 RW 04, Desa Selaawi, Kab. Garut\n\nKlik link di bawah untuk membuka undangan digital:\n${item.link}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir. Terima kasih. 🙏`;
+    function shareLinkViaWA(name, link) {
+      const message = `Assalamu'alaikum Wr. Wb.\n\nDengan segala kerendahan hati dan rasa syukur atas karunia Allah SWT yang senantiasa mencurahkan tetes kelembutan kasih sayang Nya.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i *${name}* untuk menghadiri acara pernikahan kami:\n\n*Shinta & Huda*\n\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n${link}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir. \n\nTerima kasih atas perhatiannya.\nWassalamualaikum Wr. Wb.`;
 
       const waUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
       window.open(waUrl, '_blank');
+      showToast('💬 Membuka WhatsApp...');
     }
 
-    function renderLinkHistory() {
-      const container = document.getElementById('link-gen-history');
-      const items = document.getElementById('link-gen-history-items');
+    function switchTrackerTab(tabId) {
+      document.querySelectorAll('.tracker-tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tracker-tab').forEach(t => t.classList.remove('active'));
 
-      if (!container || !items) return;
-
-      if (linkHistory.length === 0) {
-        container.style.display = 'none';
-        return;
+      if (tabId === 'generate') {
+        document.getElementById('tab-generate').classList.add('active');
+        document.getElementById('tab-btn-generate').classList.add('active');
+      } else {
+        document.getElementById('tab-stats').classList.add('active');
+        document.getElementById('tab-btn-stats').classList.add('active');
+        InvitationTracker.refreshData();
       }
+    }
 
-      container.style.display = 'block';
-      items.innerHTML = '';
-
-      linkHistory.forEach(h => {
-        const div = document.createElement('div');
-        div.className = 'link-gen-history-item';
-        div.innerHTML = `
-          <div class="link-gen-history-name">👤 ${escapeHtml(h.name)}</div>
-          <div class="link-gen-history-actions">
-            <button class="link-gen-history-btn" onclick="copyHistoryLink('${escapeHtml(h.name).replace(/'/g, "\\'")}')">📋 Salin</button>
-            <button class="link-gen-history-btn" onclick="shareHistoryViaWA('${escapeHtml(h.name).replace(/'/g, "\\'")}')">💬 WA</button>
-          </div>
-        `;
-        items.appendChild(div);
+    function refreshStats() {
+      const refreshBtn = document.querySelector('.tracker-refresh-btn');
+      refreshBtn.textContent = '⏳ Memuat...';
+      refreshBtn.disabled = true;
+      
+      InvitationTracker.syncFromLocalStorage().then(() => {
+        InvitationTracker.refreshData().then(() => {
+          refreshBtn.textContent = '🔄 Segarkan';
+          refreshBtn.disabled = false;
+          showToast('📊 Data berhasil diperbarui!');
+        });
       });
     }
 
